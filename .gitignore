@@ -1,0 +1,65 @@
+# Virtual environments
+env/
+venv/
+ENV/
+.venv/
+env.bak/
+my_tf_env/
+
+ML_Model/model_store/
+ML_Model/test/
+chatbot/TEST/
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+.history
+# VSCode settings
+.vscode/
+
+# PyInstaller
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Pytest
+.cache/
+.pytest_cache/
+
+# MyPy
+.mypy_cache/
+
+# PyCharm
+.idea/
+
+# Data and model files
+*.h5
+*.hdf5
+*.ckpt
+*.pt
+*.pth
+*.tflite
+*.pb
+*.onnx
+
+# Logs
+*.log
+
+# dotenv files
+.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db

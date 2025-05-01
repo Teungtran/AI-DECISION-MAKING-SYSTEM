@@ -1,0 +1,201 @@
+review_id,Review,Predicted_Rating
+,The self-help book is very insightful and helpful. I recommend it to everyone.,5.0
+,"The fan is powerful yet quiet, a perfect combination.",5.0
+,The winter coat is warm and looks amazing!,4.5
+,The gaming console has top-notch graphics and gameplay.,4.5
+,The display started flickering after a week. Very frustrating.,2.5
+,"The storyline is gripping, and the characters are well-developed.",3.0
+,The blouse’s stitching came undone after washing. Poor quality.,0.5
+,The mattress is too soft and sinks in the middle.,4.0
+,The shelf is sturdy and fits perfectly in my office.,5.0
+,The gloves don’t fit properly and feel awkward to wear.,2.5
+,This keyboard is responsive and great for typing long hours.,4.5
+,This cookbook has easy-to-follow recipes that taste amazing.,5.0
+,The mattress is too firm and uncomfortable to sleep on.,1.5
+,The fan makes a loud noise when operating. Not great.,4.5
+,"The illustrations are nice, but the story falls flat.",4.5
+,This ceiling fan is powerful and energy-efficient.,4.5
+,It stopped working after just a week. Really disappointed.,3.0
+,Great value for the price! Solid build and fast performance.,5.0
+,These shorts are comfortable and great for lounging.,5.0
+,The pillows are soft and supportive. Perfect for sleeping.,5.0
+,The sweater shrunk after the first wash. Not impressed.,1.5
+,The camera overheats too quickly. Unusable for long sessions.,2.0
+,This novel is a page-turner with great pacing.,4.5
+,"It works okay for its price, but it’s nothing special.",0.5
+,The blazer is well-tailored and perfect for formal occasions.,5.0
+,"The instructions were unclear, making assembly difficult.",2.0
+,The printer is reliable and prints documents quickly.,5.0
+,The novel is beautifully written and very thought-provoking.,2.0
+,The travel guide is full of useful tips and beautiful photos.,5.0
+,This cookbook has delicious recipes that are easy to follow.,5.0
+,"The design is sleek, but it lacks important features.",4.5
+,This graphic novel has beautiful artwork and an engaging story.,4.5
+,The screen resolution is sharp and vibrant.,4.0
+,This sofa is incredibly comfortable and looks great in my living room.,5.0
+,This storage unit is sturdy and has plenty of space.,4.5
+,The illustrations in this book are stunning and add to the story.,5.0
+,"Overall, this gadget is worth every penny for its utility.",5.0
+,The recipes in this cookbook are too complicated and impractical.,4.0
+,These jeans are high-quality and fit like a dream.,4.5
+,The pressure cooker works perfectly and cooks meals fast.,5.0
+,This vacuum cleaner is lightweight and easy to maneuver.,5.0
+,The noise cancellation on these headphones is superb.,3.0
+,This poetry collection is beautifully written and very emotional.,3.0
+,This sweater feels luxurious and is incredibly cozy.,5.0
+,These running shoes are perfect for my daily workouts.,5.0
+,The fabric on the chair started tearing within weeks.,2.5
+,"Setup was simple, and the product works like a charm.",4.5
+,This book was boring and predictable. A waste of time.,0.5
+,The cookware is functional but not durable in the long run.,1.5
+,The color of the curtains faded after one wash.,2.5
+,The pressure cooker is good but takes too long to heat.,4.0
+,The device didn’t last more than two months. Waste of money.,0.5
+,The gloves are durable and keep my hands warm.,3.0
+,The poetry collection is hit or miss depending on the poem.,4.5
+,The heater warms up the room quickly and evenly.,4.0
+,This hoodie is soft and has a modern design.,5.0
+,"This smartphone has exceeded my expectations, especially the camera.",5.0
+,The shirt has a unique design and feels comfortable.,5.0
+,"It’s an okay product, but I’ve seen better in this price range.",1.0
+,The cardigan is soft and goes with almost anything.,3.0
+,The shirt’s color faded after just one wash. Disappointed.,0.5
+,The fabric on the sofa started peeling after a month.,4.0
+,"The device works, but it’s nothing special. Very average.",0.5
+,The poetry in this book is touching and beautifully crafted.,3.5
+,The plot starts strong but fizzles out midway. Mixed feelings.,2.0
+,The shoes are lightweight and provide great arch support.,5.0
+,The trench coat is a timeless piece that I love.,4.5
+,The shoes caused blisters after wearing them for an hour.,1.0
+,The manual was confusing and hard to follow.,1.5
+,"The TV's picture quality is stunning, and the sound is crystal clear.",2.5
+,The novel has an interesting premise but poor execution.,0.5
+,The hoodie shrunk drastically after washing. Not happy.,3.5
+,"The blender works like a charm, blending everything smoothly.",5.0
+,The pants are stylish but not very durable over time.,3.0
+,This couch is both comfortable and stylish. Great addition!,5.0
+,The monitor has significant backlight bleeding. Annoying to use.,2.0
+,The tablet is lightweight and works perfectly for reading and browsing.,5.0
+,The fantasy novel has an amazing plot and great characters.,5.0
+,The belt is sturdy and looks great with my outfits.,4.5
+,This power bank is a lifesaver during trips. Highly recommended!,4.5
+,This biography is inspiring and very well-written.,1.5
+,The history book is detailed and fascinating to read.,5.0
+,The washing machine is efficient and runs quietly.,4.5
+,This monitor has excellent resolution and low blue light mode.,4.5
+,This jacket is warm and stylish. I love it!,4.5
+,The thriller had twists I didn’t see coming. Incredible read!,5.0
+,The photography guide is practical and easy to understand.,4.0
+,Not as durable as advertised. A mixed experience.,4.5
+,"This memoir is honest, raw, and deeply moving.",4.5
+,The handle of the pan snapped off while cooking. Disappointing.,0.5
+,The earbuds fit perfectly and have amazing sound quality.,5.0
+,The art book is full of stunning visuals and insights.,4.5
+,The blouse is elegant and fits like a glove.,5.0
+,The thriller is decent but doesn’t stand out in the genre.,2.0
+,The children’s book is both fun and educational.,4.5
+,The guidebook has some useful info but is mostly outdated.,0.5
+,The hoodie is both comfortable and trendy.,4.5
+,"The air purifier is louder than expected, disrupting sleep.",1.5
+,The smartwatch syncs seamlessly with my phone. Very convenient.,3.0
+,This bookshelf has a modern design and fits all my books.,5.0
+,The router provides a strong and stable connection throughout my home.,5.0
+,The socks are breathable and perfect for running.,5.0
+,The jacket doesn’t provide enough warmth in colder weather.,4.5
+,The charger is compact and charges my devices super fast.,4.5
+,This scarf is the perfect addition to my winter wardrobe.,5.0
+,The keyboard feels cheap and isn’t responsive at all.,3.0
+,The blender crushes ice effortlessly and is easy to clean.,5.0
+,The battery drains faster than expected. Not happy.,3.5
+,The charging speed is faster than I expected.,3.5
+,The kitchen knives are sharp and cut through anything with ease.,5.0
+,The sweater started pilling after a week of use.,4.0
+,The battery life is much worse than advertised. Disappointing.,0.5
+,The pants tore after just one wear. Very disappointed.,1.0
+,The gloves are warm and fit perfectly.,5.0
+,The dress fits perfectly and feels very comfortable.,5.0
+,The jacket zipper broke after a few uses. Poor quality.,0.5
+,The T-shirt fabric is soft and doesn’t shrink after washing.,2.5
+,The story is predictable and didn’t keep me engaged.,2.5
+,The dishwasher cleans dishes thoroughly and saves a lot of time.,4.5
+,This organizer has helped me declutter my room beautifully.,4.0
+,The coffee table looks nice but wobbles a lot. Mixed bag.,5.0
+,The lamp has an elegant design that complements my room.,5.0
+,The biography has interesting moments but feels too long.,3.0
+,The microwave heats food quickly and evenly. Highly satisfied.,4.5
+,The shorts are fine but started fading after a few washes.,3.0
+,The air purifier has made a noticeable difference in air quality.,4.0
+,"The design is sleek, but the performance is underwhelming.",0.5
+,"The camera lens produces sharp, vibrant photos every time.",3.0
+,The book is overhyped and didn’t meet my expectations.,4.0
+,"The bed frame is solid, and the assembly was easy.",5.0
+,This book’s language is too dense and hard to follow.,4.5
+,The hat is stylish and keeps me warm during cold days.,3.0
+,This rug feels soft and looks very stylish in my living room.,4.5
+,This book is a masterpiece! I couldn’t put it down.,4.5
+,The travel guide is outdated and not very helpful.,3.0
+,The writing style is captivating and draws you in from the start.,3.5
+,The fabric of the hoodie feels cheap and uncomfortable.,0.5
+,The jeans are stylish but run smaller than expected.,1.5
+,"The socks are soft and durable, perfect for daily wear.",5.0
+,The vacuum cleaner loses suction power quickly. Frustrating.,3.0
+,The dining table is sturdy and has a beautiful finish.,4.0
+,The characters are flat and not relatable at all.,2.5
+,Average performance—not bad but not great either.,1.5
+,I’m impressed with the durability of this phone case.,1.0
+,The storage box arrived cracked and unusable. Disappointing.,0.5
+,This self-help book is truly inspiring and motivating.,4.5
+,"These curtains completely block out light, which is perfect for sleeping.",5.0
+,This laptop boots up incredibly fast and is perfect for work.,5.0
+,The sweater is cozy and perfect for the cold weather.,5.0
+,The laptop cooling pad keeps my device cool and silent.,2.0
+,The heater consumes too much energy. A mixed bag.,5.0
+,The buttons feel flimsy and low quality.,2.0
+,The coffee maker brews quickly and tastes amazing.,5.0
+,The cookware set heats evenly and is easy to clean.,5.0
+,This pair of pants is comfortable and stylish.,5.0
+,Charging cable was missing from the box. Poor quality control.,0.5
+,The blender motor burned out after a month. Not worth it.,1.0
+,This mystery novel kept me guessing until the very end.,3.5
+,This coffee table is well-made and looks fantastic.,4.5
+,The belt buckle broke unexpectedly. Frustrating experience.,1.0
+,The athletic wear is breathable and great for workouts.,4.5
+,The curtains are thick and provide great insulation.,5.0
+,The lawn mower cuts grass evenly and is easy to operate.,4.0
+,This smartwatch has a sleek design and great features for fitness tracking.,5.0
+,The guidebook is packed with helpful tips for travelers.,4.5
+,"The poetry is okay, but it doesn’t evoke much emotion.",0.5
+,The dress is flattering and great for special occasions.,5.0
+,This mystery novel kept me hooked until the last page.,4.5
+,The turtleneck sweater is soft and feels luxurious.,4.5
+,The sound quality of these headphones is amazing. Highly recommend!,5.0
+,The fantasy world-building is incredible and immersive.,5.0
+,"It’s okay, but there are better alternatives at this price.",1.5
+,"The device overheats too often, which is frustrating.",2.0
+,The soundbar enhances the audio experience to a whole new level.,4.5
+,"The features are decent, but the build quality feels cheap.",2.5
+,This workout set is stretchy and perfect for yoga.,5.0
+,This external hard drive is compact and stores a lot of data.,4.5
+,The mystery novel is okay but lacks real suspense.,0.5
+,"The socks are okay, but they wear out quickly.",1.0
+,"The scarf is nice, but the stitching could be better.",4.0
+,The characters are poorly developed and hard to connect with.,0.5
+,The dress is okay but doesn’t look as good as in the pictures.,2.0
+,The hat is lightweight and shields from the sun well.,4.5
+,The shoes are uncomfortable and gave me blisters.,1.0
+,"The speakers are loud and clear, perfect for parties.",4.5
+,This book is a treasure trove of information on its subject.,5.0
+,The dress material feels cheap and uncomfortable.,0.5
+,Battery life is excellent and lasts all day without any issues.,5.0
+,The fantasy novel has a weak plot and inconsistent pacing.,1.0
+,"The children’s book is fun, educational, and engaging.",4.5
+,The language in the textbook is too technical and hard to follow.,4.5
+,"The design looks nice, but the quality isn’t great.",5.0
+,The camera quality of this drone is professional-grade.,4.5
+,The textbook is comprehensive and covers the subject in detail.,3.5
+,The cookbook has recipes that are overly complex and impractical.,1.0
+,"The science book explains concepts in a simple, clear way.",4.5
+,The toaster makes perfect golden-brown toast every time.,5.0
+,The projector produces a bright and clear image even in daylight.,2.0
+,The bookshelf is decent but came with missing screws.,0.5
+,The dining set arrived with scratches on the surface.,1.5
