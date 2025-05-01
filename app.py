@@ -44,7 +44,7 @@ st.sidebar.markdown("""
 - Data Analyst: Data preprocessing & schema design  
 - Business Analyst: Translate business goals into technical strategies, identify data-driven opportunities, design data flow, write doc and API requirement
 -----------------------------------------------------------------------------------------------------------------
-[**For more details, please click here**](https://github.com/Teungtran/AI-ML-DECISION-MAKING-SYSTEM)
+[**For more details, please click here**](https://github.com/Teungtran/AI-DECISION-MAKING-SYSTEM)
 
 """)
 
