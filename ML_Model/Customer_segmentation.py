@@ -5,6 +5,8 @@ import pandas as pd
 import numpy as np
 from collections import Counter
 import matplotlib.pyplot as plt
+from dotenv import load_dotenv
+load_dotenv()
 CLUSTER_MODEL = os.getenv("CLUSTER_MODEL")
 SCALER_CLUSTER = os.getenv("SCALER_CLUSTER")
 cluster_model = jb.load(CLUSTER_MODEL)

@@ -8,6 +8,7 @@ from ML_Model.churn_probability import visualize_customer_churn
 from ML_Model.Profit_Forecasting import visualize_forecast,visualize_report
 from AI_data_analyst.chat_csv import *
 from AI_data_analyst.data_processing import *
+
 BASE_URL = "http://localhost:8888"
 FORECAST_API = f"{BASE_URL}/forecast/"
 CHATBOT_API = f"{BASE_URL}/chatbot/"
@@ -16,6 +17,7 @@ SEGMENT_API = f"{BASE_URL}/segment/"
 SENTIMENT_BATCH_API = f"{BASE_URL}/sentiment/batch/"
 SENTIMENT_API = f"{BASE_URL}/sentiment/"
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+
 model = None
 # Page configuration
 st.set_page_config(
@@ -25,104 +27,147 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Sidebar
-st.sidebar.title("Our Features ⚙️")
-st.sidebar.markdown("Use **Home** to explore features.")
-
-st.sidebar.markdown("---")
-
-st.sidebar.markdown("#### Project Owner")
-st.sidebar.markdown("""
-**Nguyen Tran Trung - National Economics University**
-
-**Main Roles:**
-- **AI Engineer**: Design & build Multi-AI Agent Systems  
-- **Data Scientist**: Train and deploy ML/DL models  
-
-**Other Roles:**
-- Backend Engineer: Streamlined frontend-backend via FastAPI  
-- Data Analyst: Data preprocessing & schema design  
-- Business Analyst: Translate business goals into technical strategies, identify data-driven opportunities, design data flow, write doc and API requirement
------------------------------------------------------------------------------------------------------------------
-[**For more details, please click here**](https://github.com/Teungtran/AI-DECISION-MAKING-SYSTEM)
-
-""")
-
-# Set session state default
 if "page" not in st.session_state:
     st.session_state["page"] = "🏠 Home"
 
-# Home Page
+# Sidebar configuration
+st.sidebar.title("**🤖 CORTEX**")
+st.sidebar.title("Our Features ⚙️")
+
+# Feature Navigation in Sidebar with expanders
+with st.sidebar.expander("💬 Multi Agent AI Chatbot"):
+    st.markdown("""
+    - Ask anything about your data  
+    - Use AI to generate answers or summaries
+    """)
+    if st.button("Go to Chatbot"):
+        st.session_state["page"] = "Chatbot"
+        st.rerun()
+
+with st.sidebar.expander("📊 🤖 AI Data Analyst"):
+    st.markdown("""
+    - Upload financial or customer data  
+    - Automatically generate insights, KPIs, and charts  
+    """)
+    if st.button("Go to AI Data Analyst"):
+        st.session_state["page"] = "AI Data Analyst"
+        st.rerun()
+
+with st.sidebar.expander("📈 Forecasting Profit"):
+    st.markdown("""
+    - Predict future profit trends  
+    - Plan marketing & spending wisely
+    """)
+    if st.button("Go to Profit Forecasting"):
+        st.session_state["page"] = "Forecasting Profit"
+        st.rerun()
+
+with st.sidebar.expander("👥 Customer Segmentation"):
+    st.markdown("""
+    - Cluster customers based on behavior  
+    - Find patterns and target precisely
+    """)
+    if st.button("Go to Segmentation"):
+        st.session_state["page"] = "Customer Segmentation"
+        st.rerun()
+
+with st.sidebar.expander("😊😡 Feedback Analysis"):
+    st.markdown("""
+    - Perform sentiment analysis  
+    - Know how customers feel
+    """)
+    if st.button("Go to Feedback Analysis"):
+        st.session_state["page"] = "Customer Feedback Analysis"
+        st.rerun()
+
+with st.sidebar.expander("🔁 Predict Churn Probability"):
+    st.markdown("""
+    - Identify who might leave  
+    - Take action before churn happens
+    """)
+    if st.button("Go to Churn Prediction"):
+        st.session_state["page"] = "Predict Churn Probability"
+        st.rerun()
+
+st.sidebar.success("Use the buttons above to explore each feature 👉")
+
+# Main content area
 if st.session_state["page"] == "🏠 Home":
     st.title("**🤖 CORTEX - AI Decision-Making System**")
     st.markdown("### 📊 **Unlock Insights, Automate Reports**")
     st.markdown("Empower your business with cutting-edge AI Agentic and Machine Learning.")
+    
+    # Project owner information moved to main page
+    st.markdown("---")
+    tab1, tab2 = st.tabs(["👤 ABOUT ME", "🧠 ABOUT SYSTEM"])
+    with tab1:
+            st.markdown("""
+            <div style="text-align: center;">
+                <h2 style="margin-bottom: 5px;"><strong>Nguyen Tran Trung</strong></h2>
+                <p style="margin-top: 0;">National Economics University</p>
+                <h4 style="color: grey; font-weight: normal;">Project Owner</h4>
+            </div>
+            """, unsafe_allow_html=True)
 
-    with st.expander("💬 Multi Agent AI Chatbot"):
-        st.markdown("""
-        - Ask anything about your data  
-        - Use AI to generate answers or summaries
-        """)
-        if st.button("Go to Chatbot"):
-            st.session_state["page"] = "Chatbot"
-            st.rerun()
+            st.markdown("### 🎯 Main Roles")
+            st.markdown("""
+            - 🧠 **AI Engineer**: Design & build Multi-AI Agent Systems  
+            - 📊 **Data Scientist**: Train and deploy ML/DL models  
+            """)
 
-    with st.expander("📊Analyse Reports"):
-        st.markdown("""
-        - Upload financial or customer data  
-        - Automatically generate insights, KPIs, and charts  
-        """)
-        if st.button("Go to Report Analysis"):
-            st.session_state["page"] = "Analyse Reports"
-            
+            st.markdown("### 🛠️ Supporting Roles")
+            st.markdown("""
+            - ⚙️ **Backend Engineer**: Connect frontend-backend via FastAPI  
+            - 📈 **Data Analyst**: Data preprocessing & schema design  
+            - 🧩 **Business Analyst**: Map business goals to technical strategies, design workflows, and write documentation  
+            """)
 
-    with st.expander("📈 Forecasting Profit"):
-        st.markdown("""
-        - Predict future profit trends  
-        - Plan marketing & spending wisely
-        """)
-        if st.button("Go to Profit Forecasting"):
-            st.session_state["page"] = "Forecasting Profit"
-            st.rerun()
+            st.markdown("""
+            <hr style="border-top: 1px solid #bbb;" />
+            <p style="text-align:center;">
+                🔗 <a href="https://github.com/Teungtran/AI-DECISION-MAKING-SYSTEM" target="_blank"><strong>More About This Project</strong></a>
+            </p>
+            """, unsafe_allow_html=True)
+    with tab2:
+            st.markdown("""
+            <div style="text-align: center;">
+                <h2><strong>AI Decision-Making System</strong></h2>
+                <p style="margin-top: 0;"><em>Smart Automation for Business Operations & Strategy</em></p>
+            </div>
+            """, unsafe_allow_html=True)
 
+            st.markdown("### 🔧 Key Modules")
 
-    with st.expander("👥 Customer Segmentation"):
-        st.markdown("""
-        - Cluster customers based on behavior  
-        - Find patterns and target precisely
-        """)
-        if st.button("Go to Segmentation"):
-            st.session_state["page"] = "Customer Segmentation"
-            st.rerun()
+            st.markdown("#### 📌 Business Operation Management")
+            st.markdown("""
+            - Answer questions about Amazon policies & processes  
+            - Query structured business data (e.g., customers, products)  
+            - Update insights via web search  
+            - Personalize user interaction  
+            - Recommend strategies & brainstorm ideas  
+            """)
 
-    with st.expander("😊😡 Feedback Analysis"):
-        st.markdown("""
-        - Perform sentiment analysis  
-        - Know how customers feel
-        """)
-        if st.button("Go to Feedback Analysis"):
-            st.session_state["page"] = "Customer Feedback Analysis"
-            st.rerun()
+            st.markdown("#### 📊 Performance & Reporting")
+            st.markdown("""
+            - Generate on-demand business reports (Excel or DB)  
+            - Visualize data interactively  
+            - Real-time revenue forecasting  
+            - Monitor sales, trends, and buyer behavior  
+            """)
 
-    with st.expander("🔁 Predict Churn Probability"):
-        st.markdown("""
-        - Identify who might leave  
-        - Take action before churn happens
-        """)
-        if st.button("Go to Churn Prediction"):
-            st.session_state["page"] = "Predict Churn Probability"
-            st.rerun()
-
-    st.success("Use the buttons above to explore each feature 👉")
-
-# Analyse Reports
-if st.session_state["page"] == "Analyse Reports":
-    st.header("🧾 Analyse Reports")
+            st.markdown("#### 👥 Customer Management")
+            st.markdown("""
+            - Segment customers for engagement strategy  
+            - Analyze sentiment from feedback  
+            - Predict churn risk and suggest actions  
+            """)
+#____________________________FEATURES_______________________________________
+# AI Data Analyst
+if st.session_state["page"] == "AI Data Analyst":
     st.sidebar.button("Back to Home", on_click=lambda: st.session_state.update({"page": "🏠 Home"}))
-    st.write("Your chatbot interface here.")
 
-    st.session_state.current_feature = "Analyse Reports"
-    st.title("Analyse Reports📊")
+    st.session_state.current_feature = "AI Data Analyst"
+    st.title(" AI Data Analyst📊")
     st.markdown("**Explore your data in an interactive way!**")
     st.divider()
     df = None
@@ -150,73 +195,82 @@ if st.session_state["page"] == "Analyse Reports":
         visualize_data(df)
 
 elif st.session_state["page"] == "Chatbot":
-    st.header("💬 Chatbot")
-    st.sidebar.button("Back to Home", on_click=lambda: st.session_state.update({"page": "🏠 Home"}))
+    st.title("🛒 Cortex AI Chatbot 🤖")
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
-    st.sidebar.markdown("<h2 style='color:white;'>🛒 Cortex AI Assistant</h2>", unsafe_allow_html=True)
-    st.sidebar.markdown("<h3 style='color:white;'>Categories</h3>", unsafe_allow_html=True)
-
-    st.sidebar.markdown(
-        """
-        - 📝 **Policy**  
-        Get store policies and return/exchange info.  
-        - 👥 **Customers**  
-        Manage customer profiles & inquiries.  
-        - 📦 **Orders**  
-        Track orders, refunds, and shipments.  
-        - 🔍 **Search**  
-        Find answers to common questions.  
-        """, 
-        unsafe_allow_html=True
-    )
-
-
-    st.title("🛒 Cortex AI Assistant 🤖")
-
-    session_id_input = st.sidebar.text_input("Enter user id (optional)")
-    if session_id_input:
-        st.session_state.session_id = session_id_input
-
-    if st.sidebar.button("Clear Chat", key="clear_chat"):
-        st.session_state.messages = []
+    if "session_id" not in st.session_state:
         st.session_state.session_id = str(uuid.uuid4())
-        st.rerun()
 
+    st.sidebar.button("Back to Home", on_click=lambda: st.session_state.update({"page": "🏠 Home"}))
+
+    # Collapsible User Settings & Chat Tools
+    with st.expander("User Settings & Chat Tools", expanded=True):
+        session_id_input = st.text_input("User ID (optional):", value=st.session_state.session_id)
+        if session_id_input:
+            st.session_state.session_id = session_id_input
+
+        if st.button("🧹 Clear Chat"):
+            st.session_state.messages = []
+            st.session_state.session_id = str(uuid.uuid4())
+            st.rerun()
+
+    # Collapsible Suggested Questions
+    with st.expander("💡 Try asking:", expanded=True):
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("📦 What is Amazon policy on selling platform for sellers"):
+                prompt = "What is Amazon policy on selling platform for sellers"
+        with col2:
+            if st.button("👑 What is the number of VIP Customers labeled, and their average money spent"):
+                prompt = "What is the number of VIP Customers labeled, and their average money spent"
+
+        col3, col4 = st.columns(2)
+        with col3:
+            if st.button("📣 How can I set up a marketing campaign aimed at teen customers"):
+                prompt = "How can I set up a marketing campaign aimed at teen customers"
+        with col4:
+            if st.button("📊 What is today's latest business trends"):
+                prompt = "What is today's latest business trends"
 
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
     prompt = st.chat_input("Type your message here...")
+
     if prompt:
         with st.chat_message("user"):
             st.markdown(prompt)
-        
+
         st.session_state.messages.append({"role": "user", "content": prompt})
-        
+
         with st.chat_message("assistant"):
             with st.spinner("Thinking..."):
                 try:
                     payload = {"user_input": prompt, "user_id": st.session_state.session_id}
                     accumulated_response = ""
                     response_container = st.empty()
-                    
+
                     with requests.post(CHATBOT_API, json=payload, stream=True, timeout=30) as response:
-                        response.raise_for_status()  # Raise exception for non-200 status
+                        response.raise_for_status()
                         for chunk in response.iter_content(chunk_size=1024, decode_unicode=True):
                             if chunk:
                                 accumulated_response += chunk
                                 response_container.markdown(accumulated_response)
-                    
-                    st.session_state.messages.append({"role": "assistant", "content": accumulated_response})
-                    
+
+                    st.session_state.messages.append({
+                        "role": "assistant",
+                        "content": accumulated_response
+                    })
+
                 except requests.exceptions.RequestException as e:
                     st.error(f"Network error: {str(e)}")
                 except Exception as e:
-                    st.error(f"General error: {str(e)}")
+                    st.error(f"Unexpected error: {str(e)}")
+
+
                     
 elif st.session_state["page"] == "Forecasting Profit":
     st.header("📈📊 Forecasting Profit")
@@ -313,86 +367,69 @@ elif st.session_state["page"] == "Forecasting Profit":
 
 
 elif st.session_state["page"] == "Predict Churn Probability":
-    st.header("⚠️💸Predict Churn Probability")
-    st.sidebar.button("Back to Home", on_click=lambda: st.session_state.update({"page": "🏠 Home"}))
+    st.header("⚠️💸 Predict Churn Probability")
+    st.sidebar.button("← Back to Home", on_click=lambda: st.session_state.update({"page": "🏠 Home"}))
 
     st.session_state.current_feature = "Predict Churn Probability"
 
-    st.title("**🔍📉🤔 Customer slipping away? Not on our watch! 👀🚀**")
-    st.sidebar.subheader("Instruction")
-    st.divider()
-    st.sidebar.info("""
-                    **Note:** The model requires a dataset with these columns: 
-                    - customer_id
-                    - Purchase Date
-                    - Product Category
-                    - Product Price
-                    - Quantity
-                    - Payment Method
-                    - Customer Name
-                    - Customer_Labels
-                    - Price
-                    """)
-    st.sidebar.info("""
-                    **The model will calculate and give out the output of:** 
-                    - Favoured_Product_Categories
-                    - Frequency
-                    - TotalSpent
-                    - Favoured_Payment_Methods
-                    - Customer_Label
-                    - Recency
-                    - Avg_Spend_Per_Purchase
-                    - Purchase_Consistency
-                    - Churn_Probability
-                    """)
-    uploaded_file = st.file_uploader("Upload your CSV or XLSX file", type=['csv', 'xlsx'])
+    st.title("🔍📉🤔 Customer slipping away? Not on our watch! 👀🚀")
+    uploaded_file = st.file_uploader("Upload your **CSV** or **XLSX** file", type=['csv', 'xlsx'])
+    with st.expander("What data do I need?"):
+        st.info("""
+        #### Required Columns
+        - `customer_id`  
+        - `Purchase Date`  
+        - `Product Category`  
+        - `Product Price`  
+        - `Quantity`  
+        - `Payment Method`  
+        - `Customer Name`  
+        - `Customer_Labels`  
+        - `Price`  
+
+        #### Output After Prediction
+        - `Favoured_Product_Categories`  
+        - `Frequency`  
+        - `TotalSpent`  
+        - `Favoured_Payment_Methods`  
+        - `Customer_Label`  
+        - `Recency`  
+        - `Avg_Spend_Per_Purchase`  
+        - `Purchase_Consistency`  
+        - `Churn_Probability`  
+        """)
+
     if uploaded_file is not None:
         try:
-            # Import and process data for preview
             df = import_data(uploaded_file)
-            
-            with st.expander("Data Preview:"):  
+            with st.expander("📄 Data Preview"):
                 st.dataframe(df.head(100))
-                
-            if df is not None:
-                if st.button("Predict Churn Probability"):
-                    with st.spinner("Predicting Churn Probability..."):
-                        try:
-                            # Reset file pointer to beginning
-                            uploaded_file.seek(0)
-                            
-                            # Prepare the file for API upload
-                            files = {'file': uploaded_file}
-                            
-                            # Make API request
-                            response = requests.post(CHURN_API, files=files)
-                            
-                            
-                            if response.status_code == 200:
-                                # Parse response
-                                response_data = response.json()
-                                
-                                # Since the backend now only returns churn_predictions
-                                df_churn_prediction = pd.DataFrame(response_data["results"])
-                                
-                                with st.expander("Churn Probability Preview:"):
-                                    st.dataframe(df_churn_prediction.head(100))
-                                    
-                                st.success("Churn Prediction completed successfully!")
-                                # Store prediction in session state
-                                st.session_state.df_churn_prediction = df_churn_prediction
-                            else:
-                                st.error(f"API request failed with status code {response.status_code}")
-                                st.write(f"Response content: {response.text}")
-                        
-                        except requests.exceptions.RequestException as e:
-                            st.error(f"Network error: {str(e)}")
-                            st.exception(e)
-                        except Exception as e:
-                            st.error(f"Error during prediction: {str(e)}")
-                            st.exception(e)
+
+            if st.button("🚀 Predict Churn Probability"):
+                with st.spinner("Running churn prediction..."):
+                    try:
+                        uploaded_file.seek(0)
+                        files = {'file': uploaded_file}
+                        response = requests.post(CHURN_API, files=files)
+
+                        if response.status_code == 200:
+                            response_data = response.json()
+                            df_churn_prediction = pd.DataFrame(response_data["results"])
+                            with st.expander("📊 Churn Probability Results"):
+                                st.dataframe(df_churn_prediction.head(100))
+                            st.success("✅ Churn Prediction completed!")
+                            st.session_state.df_churn_prediction = df_churn_prediction
+                        else:
+                            st.error(f"API error {response.status_code}")
+                            st.write(f"Details: {response.text}")
+                    except requests.exceptions.RequestException as e:
+                        st.error("Network error")
+                        st.exception(e)
+                    except Exception as e:
+                        st.error("Error during prediction")
+                        st.exception(e)
         except Exception as e:
-            st.error(f"Error loading file: {str(e)}")
+            st.error("Error loading file")
             st.exception(e)
 
     # Moved the visualization button section outside the file upload logic
@@ -407,45 +444,63 @@ elif st.session_state["page"] == "Customer Segmentation":
     st.sidebar.button("Back to Home", on_click=lambda: st.session_state.update({"page": "🏠 Home"}))
 
     st.session_state.current_feature = "Customer Segmentation"
-    st.title("**Explore your customers based on their behavior and preferences!**")
-    
-    st.sidebar.subheader("Instruction")
-    st.divider()
-    st.sidebar.info("""
-                    **Note:** The model requires a dataset with at least 5 columns: 
-                    - Customer_ID
-                    - Customer_Name
-                    - PurchaseDate
-                    - Price
-                    - Quantity
-                    """)
-    st.sidebar.info("""
-                    **The model will calculate and give out the output of:** 
-                    - Last Purchase Date
-                    - TotalSpent (Monetary)
-                    - Frequency 
-                    - Recency 
-                    - Customers Labels
-                    """)
+    st.title("Explore your customers based on their behavior and preferences")
+
+    # Step 1: Upload file
     uploaded_file = st.file_uploader("Upload your CSV or XLSX file", type=['csv', 'xlsx'])
+
+    # Step 2: Show instructions only if needed
+    with st.expander("What data do I need?"):
+        st.info("""
+        #### Input Dataset Requirements
+        Your dataset should include at least these **5 columns**:
+
+        - `Customer_ID`  
+        - `Customer_Name`  
+        - `PurchaseDate`  
+        - `Price`  
+        - `Quantity`  
+
+        #### Output After Processing
+        The system will calculate:
+
+        - `Last Purchase Date`  
+        - `TotalSpent` (Monetary)  
+        - `Frequency`  
+        - `Recency`  
+        - `Customer Labels`
+        """)
+
+    # Step 3: Data preview and processing
     if uploaded_file is not None:
         df = import_data(uploaded_file)
-        with st.expander("Data Preview:"):  
+        with st.expander("Data Preview"):
             st.dataframe(df.head(100))
+
         if df is not None:
             if st.button("Predict Clusters"):
                 with st.spinner("Generating..."):
-                    uploaded_file.seek(0)      
-                    files = {'file': uploaded_file}
-                    response = requests.post(SEGMENT_API, files=files)
-                    if response.status_code == 200:
-                        response_data = response.json()
-                        df_cluster = pd.DataFrame(response_data["results"])
-                    with st.expander("Customer Segmentation with Clusters"):
-                        st.dataframe(df_cluster.head(100))    
-                    st.session_state.df_cluster = df_cluster                    
-                    st.success("Customer Segmentation completed successfully!")
+                    try:
+                        uploaded_file.seek(0)
+                        files = {'file': uploaded_file}
+                        response = requests.post(SEGMENT_API, files=files)
 
+                        if response.status_code == 200:
+                            response_data = response.json()
+                            df_cluster = pd.DataFrame(response_data["results"])
+
+                            with st.expander("Customer Segmentation Results"):
+                                st.dataframe(df_cluster.head(100))
+
+                            st.session_state.df_cluster = df_cluster
+                            st.success("Customer Segmentation completed successfully!")
+                        else:
+                            st.error(f"API error: {response.status_code}")
+                            st.write(f"Response: {response.text}")
+                    except Exception as e:
+                        st.error("Something went wrong during segmentation.")
+                        st.exception(e)
+                        
             if st.button("Visualize Result"):
                 with st.expander("Customer Segmentation with Clusters"):
                     st.dataframe(st.session_state.df_cluster.head(100))
@@ -484,12 +539,17 @@ elif st.session_state["page"] == "Customer Feedback Analysis":
         st.session_state.show_batch_analysis = False
 
     # Sidebar for selecting analysis type
-    with st.sidebar:
-        st.header("Analysis Options")
-        if st.button("Test Single Review"):
+    st.markdown("## Analysis Options")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        if st.button("📝 Test Single Review"):
             st.session_state.show_text_input = True
             st.session_state.show_batch_analysis = False
-        if st.button("Analyze Multiple Reviews"):
+
+    with col2:
+        if st.button("📂 Analyze Multiple Reviews"):
             st.session_state.show_text_input = False
             st.session_state.show_batch_analysis = True
 

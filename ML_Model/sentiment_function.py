@@ -2,6 +2,8 @@ import torch
 import streamlit as st
 import os
 import numpy as np
+from dotenv import load_dotenv
+load_dotenv()
 import re
 import nltk
 from nltk.tokenize import word_tokenize

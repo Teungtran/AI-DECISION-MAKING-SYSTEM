@@ -2,6 +2,8 @@ import joblib as jb
 import pandas as pd
 import numpy as np
 import os
+from dotenv import load_dotenv
+load_dotenv()
 import matplotlib.pyplot as plt
 import seaborn as sns
 import warnings
@@ -14,8 +16,9 @@ from calendar import month_abbr
 import streamlit as st 
 XGB_MODEL = os.getenv("XGB_MODEL")
 XGB_SCALER = os.getenv("XGB_SCALER")
+
 #_______Load model____________
-best_model  =  jb.load(XGB_MODEL)
+best_model = jb.load(XGB_MODEL)
 scaler = jb.load(XGB_SCALER)
 #______________Feature Engineering_______________
 def time_features(df):
