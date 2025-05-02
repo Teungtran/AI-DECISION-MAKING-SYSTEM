@@ -10,7 +10,6 @@ from ML_Model.Customer_segmentation import process_data_for_model, make_cluster
 from ML_Model.churn_probability import churn_prediction
 from ML_Model.sentiment_function import analyze_customer_reviews, analyze_single_text
 
-# Helper function to convert DataFrame to list of dicts
 def df_to_records(df):
     return json.loads(df.to_json(orient='records', date_format='iso'))
 
@@ -22,14 +21,12 @@ async def import_data(uploaded_file):
             filename = uploaded_file.filename.lower()
             content = await uploaded_file.read()
             
-            # Handle CSV files (including txt files that might be CSV)
             if filename.endswith(('.csv', '.txt')):
                 # Use chardet to detect encoding
                 result = chardet.detect(content)
-                charenc = result['encoding'] or 'utf-8'  # Default to utf-8 if detection fails
+                charenc = result['encoding'] or 'utf-8' 
                 
                 try:
-                    # Try to detect delimiter using csv Sniffer
                     sample = content.decode(charenc, errors='replace')[:4096]
                     dialect = csv.Sniffer().sniff(sample, delimiters=[',', ';', '\t', '|'])
                     delimiter = dialect.delimiter
@@ -37,8 +34,7 @@ async def import_data(uploaded_file):
                     # Fallback to comma if sniffer fails
                     delimiter = ','
                 
-                # Read CSV with detected encoding and delimiter
-                # Using on_bad_lines='skip' instead of the deprecated error_bad_lines=False
+
                 df = pd.read_csv(BytesIO(content), encoding=charenc, delimiter=delimiter, 
                                 low_memory=False, on_bad_lines='skip')
                 
@@ -50,7 +46,7 @@ async def import_data(uploaded_file):
                     engine = 'xlrd'
                 
                 df = pd.read_excel(BytesIO(content), engine=engine)
-                df = convert_dates(df)  # Assuming convert_dates function exists
+                df = convert_dates(df) 
             
             else:
                 raise ValueError("Unsupported file format. Please upload CSV or Excel files.")
@@ -86,7 +82,6 @@ def get_dummies(df):
                 df = pd.get_dummies(df, columns=[col])
     return df
 
-# Controller functions for each ML model
 class ForecastController:
     @staticmethod
     async def generate_forecast(file: Optional[UploadFile] = None, future_periods: int = 12):
