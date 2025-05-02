@@ -5,7 +5,7 @@
 
 This AI-DECISION-MAKING-SYSTEM is designed to automate data management processes and enhance customer support through intelligent chatbots, data analysis, and personalized customer experiences. The system leverages machine learning models to classify customers, predict churn rates, optimize pricing strategies, and deliver personalized recommendations.
 ## Home Page
-![Uploading image.png…]()
+<img width="1280" alt="image" src="https://github.com/user-attachments/assets/1ec01a86-704d-40ef-9bff-a15bc7ed8f1c" />
 
 ## Key Benefits
 
