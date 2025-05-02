@@ -19,7 +19,6 @@ SENTIMENT_API = f"{BASE_URL}/sentiment/"
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 model = None
-# Page configuration
 st.set_page_config(
     page_title="AI Decision-Making System",
     page_icon="🤖",
@@ -97,7 +96,6 @@ if st.session_state["page"] == "🏠 Home":
     st.markdown("### 📊 **Unlock Insights, Automate Reports**")
     st.markdown("Empower your business with cutting-edge AI Agentic and Machine Learning.")
     
-    # Project owner information moved to main page
     st.markdown("---")
     tab1, tab2 = st.tabs(["👤 ABOUT ME", "🧠 ABOUT SYSTEM"])
     with tab1:
@@ -162,7 +160,6 @@ if st.session_state["page"] == "🏠 Home":
             - Predict churn risk and suggest actions  
             """)
 #____________________________FEATURES_______________________________________
-# AI Data Analyst
 if st.session_state["page"] == "AI Data Analyst":
     st.sidebar.button("Back to Home", on_click=lambda: st.session_state.update({"page": "🏠 Home"}))
 
@@ -216,7 +213,6 @@ elif st.session_state["page"] == "Chatbot":
             st.session_state.session_id = str(uuid.uuid4())
             st.rerun()
 
-    # Collapsible Suggested Questions
     with st.expander("💡 Try asking:", expanded=True):
         col1, col2 = st.columns(2)
         with col1:
@@ -292,7 +288,6 @@ elif st.session_state["page"] == "Forecasting Profit":
                 value=365
             )
 
-            # Store forecast output in session state to persist across reruns
             if st.button("Look into the Future!👀"):
                 with st.spinner("Processing data..."):
                     try:
@@ -314,7 +309,6 @@ elif st.session_state["page"] == "Forecasting Profit":
                         st.error(f"An unexpected error occurred: {str(e)}")
                         st.exception(e)
 
-            # Show visualization if forecast_data exists
             if 'forecast_data' in st.session_state:
                 forecast_data = st.session_state['forecast_data']
                 forecast_df = pd.DataFrame(forecast_data['results'])
@@ -446,10 +440,8 @@ elif st.session_state["page"] == "Customer Segmentation":
     st.session_state.current_feature = "Customer Segmentation"
     st.title("Explore your customers based on their behavior and preferences")
 
-    # Step 1: Upload file
     uploaded_file = st.file_uploader("Upload your CSV or XLSX file", type=['csv', 'xlsx'])
 
-    # Step 2: Show instructions only if needed
     with st.expander("What data do I need?"):
         st.info("""
         #### Input Dataset Requirements
@@ -471,7 +463,6 @@ elif st.session_state["page"] == "Customer Segmentation":
         - `Customer Labels`
         """)
 
-    # Step 3: Data preview and processing
     if uploaded_file is not None:
         df = import_data(uploaded_file)
         with st.expander("Data Preview"):
@@ -538,7 +529,6 @@ elif st.session_state["page"] == "Customer Feedback Analysis":
     if "show_batch_analysis" not in st.session_state:
         st.session_state.show_batch_analysis = False
 
-    # Sidebar for selecting analysis type
     st.markdown("## Analysis Options")
 
     col1, col2 = st.columns(2)
