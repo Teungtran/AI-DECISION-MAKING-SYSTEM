@@ -1,5 +1,4 @@
 # AI-DECISION-MAKING-SYSTEM
-# AI Agent System
 
 ## Overview
 
