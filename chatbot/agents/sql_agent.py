@@ -1,6 +1,6 @@
 import os
 from langchain_community.utilities import SQLDatabase
-from ..prompt_template  import SQL_AGENT_PROMPT  
+from ..prompt_template import SQL_AGENT_PROMPT  
 
 import os
 from langchain_community.utilities import SQLDatabase

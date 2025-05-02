@@ -6,7 +6,7 @@ import pandas as pd
 from .Visualization import *
 from langchain.prompts import PromptTemplate
 import time 
-from chatbot.prompt_template import PANDAS_PROMPT
+from ..prompt_template import PANDAS_PROMPT
 from langchain_openai import AzureChatOpenAI
 OPENAI_API_KEY = os.getenv("AZURE_OPEN_AI_KEY")
 AZURE_ENDPOINT = os.getenv("AZURE_ENDPOINT")

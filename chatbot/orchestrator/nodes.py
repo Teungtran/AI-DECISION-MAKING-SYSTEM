@@ -8,7 +8,7 @@ import re
 from langchain_core.messages import AIMessage, HumanMessage,SystemMessage
 from .state import AgentState, Router, open_ai_model,gg_model
 from .memory import Semantic_memory
-from ..prompt_template import SYSTEM_PROMPT
+from chatbot.prompt_templateimport SYSTEM_PROMPT
 #_______AGENTS NODES______________
 LLM = None
 def search_engine(state: AgentState):
