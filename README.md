@@ -52,7 +52,6 @@ This AI-DECISION-MAKING-SYSTEM is designed to automate data management processes
 ### Installation
 ```bash
 git clone https://github.com/Teungtran/AI-DECISION-MAKING-SYSTEM.git
-cd ai-agent-system
 pip install -r requirements.txt
 ```
 
@@ -60,18 +59,6 @@ pip install -r requirements.txt
 1. Set up database connections
 2. Configure API keys
 3. Adjust model parameters as needed
-
-## Usage
-
-### Basic Commands
-```python
-# Example code for initializing the AI agent
-from ai_agent import Agent
-
-agent = Agent(config_path="config.json")
-response = agent.process_query("What are the current sales trends?")
-print(response)
-```
 
 ### Example Scenarios
 - **Customer Support**: Processing customer inquiries about products or services
@@ -81,10 +68,9 @@ print(response)
 ## Architecture
 
 The system is built on a modular architecture with the following components:
-- **Natural Language Processing (NLP) Engine**: Processes and understands customer queries
+- **Agentic AI**: Processes and understands customer queries
 - **Machine Learning Models**: Handle classification, prediction, and recommendation tasks
 - **Data Integration Layer**: Connects to various data sources and APIs
-- **Response Generation System**: Creates appropriate responses based on processed information
 
 ## Development Roadmap
 
