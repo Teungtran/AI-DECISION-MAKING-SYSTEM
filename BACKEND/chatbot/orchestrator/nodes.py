@@ -7,8 +7,14 @@ warnings.filterwarnings('ignore')
 import re
 from langchain_core.messages import AIMessage, HumanMessage,SystemMessage
 from .state import AgentState, Router, open_ai_model,gg_model
-from .memory import get_agent_memory
+from .memory import get_agent_memory,get_user_history
 from BACKEND.chatbot.prompt_template import SYSTEM_PROMPT
+import os
+import warnings
+warnings.filterwarnings('ignore')
+TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
+# Initialize Azure OpenAI model
+
 #_______AGENTS NODES______________
 LLM = None
 def search_engine(state: AgentState):
@@ -44,50 +50,64 @@ def sql_agent(state: AgentState):
     except Exception as e:
         return {"output": AIMessage(content=f"Error accessing database: {str(e)}")}
 
+#_____________REFLECTION & REFINEMENT NODES_______________
 def recall_memory(state: AgentState):
+    """Recall memory from JSON user history, rephrased naturally. Fallback to vector memory only if history is empty."""
     global LLM
-    LLM = open_ai_model()  
+    LLM = open_ai_model()
     user_id = state.get("user_id", "default_user")
-    memory = get_agent_memory(user_id)
-    if memory is None:
-        return {"output": AIMessage(content="Error accessing memory system. Please try again later.")}
-    try:
-        past_interactions = memory.similarity_search(
-            query=state["input"], 
-            k=5
-        )
-        if not past_interactions:
-            history_context = "No previous interactions found."
-        else:
-            history_context = "\n".join([
-                f"User: {item.metadata['query']}\nAI: {item.metadata['response']}"
-                for item in past_interactions
-            ])
-    except Exception as e:
-        print(f"Error retrieving memory: {e}")
-        history_context = "No previous interactions found due to an error."
-    memory_prompt = f"""
-    You are a Supervisor managing AI Agents. You handle user inquiries, past interactions, and follow-ups.
-    If the user asks about past interactions, retrieve relevant history and provide insights.
-    Previous Conversations:
-    {history_context}
-    New User Query:
-    User: {state['input']}
-    AI:
-    """
-    recall = LLM.invoke([
-        SystemMessage(content=memory_prompt),
-        HumanMessage(content=state["input"]),
-    ])
+    query = state["input"]
 
-    return {"output": AIMessage(content=recall.content)}
+    if not query.strip():
+        return {"output": AIMessage(content="Please provide a query to search in your memory.")}
+
+    try:
+        history = get_user_history(user_id, limit=5)  # JSON expected
+        if history and isinstance(history, list):
+            # Reformat JSON into a readable conversation
+            history_text = "\n\n".join([
+                f"User: {item.get('query', '')}\nAI: {item.get('response', '')}"
+                for item in history
+            ])
+            print(f"Retrieved {len(history)} items from JSON history")
+
+            # Ask LLM to rephrase this history into natural summary
+            rephrase_prompt = f"""
+            You are an assistant summarizing past conversations for context.
+
+            Here are the past interactions between the user and the AI:
+
+            {history_text}
+
+            Please summarize or rephrase these interactions naturally as a conversation history:
+"""
+            rephrased_history = LLM.invoke([
+                SystemMessage(content="You are a helpful assistant."),
+                HumanMessage(content=rephrase_prompt),
+            ])
+
+            memory_prompt = f"""
+            You are a Supervisor AI Agent. The user has interacted before, and their past conversations are summarized below:
+
+            {rephrased_history.content}
+
+            Now the user asks a new question:
+            User: {query}
+            AI:
+            """
+            recall = LLM.invoke([
+                SystemMessage(content=memory_prompt),
+                HumanMessage(content=query),
+            ])
+            return {"output": AIMessage(content=recall.content)}
+    except Exception as e:
+        print(f"JSON History handling failed: {str(e)}")
 
 #_______SUPERVISOR NODES______________
 def supervisor_node(state: AgentState):
     global LLM
     LLM = open_ai_model()
     agents = ["amazon_policy", "sale_expert", "sql_agent", "search_engine", "recall_memory"]
-    user_id = state.get("user_id", "default_user")
 
     decision = LLM.with_structured_output(Router).invoke(
         [
@@ -97,7 +117,7 @@ def supervisor_node(state: AgentState):
     )
     if not isinstance(decision, dict) or "next" not in decision or decision["next"] not in agents:
         decision["next"] = "recall_memory"
-    state[f"last_decision_{user_id}"] = decision["next"] 
+    print(f"Decision from LLM: {decision}")
     return {"decision": decision["next"]}
 def route_decision(state: AgentState):
     decision = state.get("decision", None)
@@ -190,7 +210,8 @@ def reflection_node(state: AgentState):
             parts = response_text.split("FEEDBACK:", 1)
             if len(parts) > 1:
                 feedback = parts[1].strip()
-    
+    print(f"Reflection analysis - Needs refinement: {needs_refinement}")
+    print(f"Reflection analysis - Feedback: {feedback}")
     return {
         "reflection_feedback": feedback,
         "needs_refinement": needs_refinement
@@ -199,8 +220,8 @@ def reflection_node(state: AgentState):
 
 def refined_node(state: AgentState):
     """
-    Refine the output based on user input and reflection feedback.
-    Only runs when necessary and focuses on core issues.
+    Refine the output based on user input, reflection feedback, and search results.
+    Uses Tavily search to find relevant context for improving responses.
     """
     global LLM
     LLM = open_ai_model()
@@ -220,29 +241,62 @@ def refined_node(state: AgentState):
         (output if isinstance(output, str) else "")
     )
 
-    # Simplified refinement prompt
-    refinement_prompt = f"""
+    # Summarize original response and identify flaws
+    summarization_prompt = f"""
     ORIGINAL USER QUERY: {user_input}
     ORIGINAL RESPONSE: {original_response}
     IMPROVEMENT NEEDED: {feedback}
 
+    Provide a concise summary of the original response and identify specific flaws 
+    that need to be addressed based on the feedback.
+    """
+    
+    summary_result = LLM.invoke(
+        [
+            SystemMessage(content="You are an expert at summarizing content and identifying areas for improvement."),
+            HumanMessage(content=summarization_prompt),
+        ]
+    )
+    
+    summary = summary_result.content if hasattr(summary_result, "content") else str(summary_result)
+    
+    
+    # Create search query based on user input and identified issues
+    search_results = Search_agent(user_input)
+    
+    # Format search results
+    formatted_results = "\n"
+    for i, result in enumerate(search_results):
+        formatted_results += f"Source {i+1}: {result.get('title', 'No title')}\n"
+        formatted_results += f"URL: {result.get('url', 'No URL')}\n"
+        formatted_results += f"Content: {result.get('content', 'No content')}\n\n"
+    
+    # Step 3: Refine the response using the search results
+    refinement_prompt = f"""
+    ORIGINAL USER QUERY: {user_input}
+    ORIGINAL RESPONSE: {original_response}
+    IMPROVEMENT NEEDED: {feedback}
+    SUMMARY OF FLAWS: {summary}
+    
+    {formatted_results}
+
     INSTRUCTIONS:
-    Fix only the specific issues mentioned in the feedback. Don't change anything else.
-    1. Keep the same facts and information
-    2. Don't add new content or assumptions
-    3. Focus only on fixing the identified problems
-    4. Provide the complete fixed response
+    1. Use the search results to address the specific issues mentioned in the feedback
+    2. Maintain the overall structure and purpose of the original response
+    3. Update factual information based on the search results
+    4. Don't add unrelated content or assumptions
+    5. Provide the complete refined response
     """
     
     refined_response = LLM.invoke(
         [
-            SystemMessage(content="You are a focused editor who fixes only what needs fixing without changing the overall content."),
+            SystemMessage(content="You are a skilled editor who refines content using reliable information from search results."),
             HumanMessage(content=refinement_prompt),
         ]
     )
     
     refined_output = AIMessage(content=refined_response.content if hasattr(refined_response, "content") else str(refined_response))
-    
+    print(f"Refined output: {refined_output}")
     return {"output": refined_output}
 
 def should_refine(state: AgentState):
