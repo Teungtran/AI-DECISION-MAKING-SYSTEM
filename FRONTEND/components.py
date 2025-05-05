@@ -32,17 +32,18 @@ def back_to_home_button():
         update_page("🏠 Home")
         
 def render_chatbot_page():
-    """Render the chatbot page"""
+    """Render the chatbot page with thinking spinner"""
     back_to_home_button()
     st.title("🛒 Cortex AI Chatbot 🤖")
-    
     
     # Initialize session state variables
     if "messages" not in st.session_state:
         st.session_state.messages = []
     if "session_id" not in st.session_state:
         st.session_state.session_id = ""
-
+    if "thinking" not in st.session_state:
+        st.session_state.thinking = False
+    
     # User settings section
     with st.expander("User Settings & Chat Tools", expanded=True):
         col1, col2 = st.columns([3, 1])
@@ -71,7 +72,7 @@ def render_chatbot_page():
         for i, (label, question) in enumerate(sample_questions):
             if cols[i % 2].button(label, key=f"sample_q_{i}", use_container_width=True):
                 st.session_state.messages.append({"role": "user", "content": question})
-                process_message(question)
+                st.session_state.thinking = True
                 st.rerun()
 
     # Display chat history
@@ -79,59 +80,61 @@ def render_chatbot_page():
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
+    # Show thinking spinner if active
+    if st.session_state.thinking:
+        with st.chat_message("assistant"):
+            with st.spinner("Thinking..."):
+                process_message(st.session_state.messages[-1]["content"])
+                st.session_state.thinking = False
+                st.rerun()
+
     # Process user input
     user_input = st.chat_input("Type your message here...")
     
     if user_input:
         st.session_state.messages.append({"role": "user", "content": user_input})
-        process_message(user_input)
+        st.session_state.thinking = True
         st.rerun()
 
 def process_message(user_input):
     """Process a message and get AI response"""
-    with st.chat_message("assistant"):
-        try:
-            payload = {
-                "user_input": user_input, 
-                "user_id": st.session_state.session_id,
-                "delay": 0.005
-            }
+    try:
+        payload = {
+            "user_input": user_input, 
+            "user_id": st.session_state.session_id,
+            "delay": 0.005
+        }
+        
+        accumulated_response = ""
+        
+        # Stream the response
+        with requests.post(
+            CHATBOT_API, 
+            json=payload, 
+            stream=True, 
+            timeout=120
+        ) as response:
+            response.raise_for_status()
             
-            message_placeholder = st.empty()
-            accumulated_response = ""
-            
-            # Stream the response
-            with requests.post(
-                CHATBOT_API, 
-                json=payload, 
-                stream=True, 
-                timeout=120
-            ) as response:
-                response.raise_for_status()
-                
-                # Process streaming response
-                for chunk in response.iter_content(chunk_size=1):
-                    if chunk:
-                        try:
-                            text = chunk.decode('utf-8')
-                            accumulated_response += text
-                            message_placeholder.markdown(accumulated_response + "▌")
-                        except UnicodeDecodeError:
-                            pass
-            
-            message_placeholder.markdown(accumulated_response)
-            
-            st.session_state.messages.append({
-                "role": "assistant",
-                "content": accumulated_response
-            })
-            
-        except Exception as e:
-            st.error(f"Error: {str(e)}")
-            st.session_state.messages.append({
-                "role": "assistant",
-                "content": f"⚠️ Sorry, I encountered an error: {str(e)}"
-            })
+            # Process streaming response
+            for chunk in response.iter_content(chunk_size=1):
+                if chunk:
+                    try:
+                        text = chunk.decode('utf-8')
+                        accumulated_response += text
+                    except UnicodeDecodeError:
+                        pass
+        
+        st.session_state.messages.append({
+            "role": "assistant",
+            "content": accumulated_response
+        })
+        
+    except Exception as e:
+        st.session_state.messages.append({
+            "role": "assistant",
+            "content": f"⚠️ Sorry, I encountered an error: {str(e)}"
+        })
 def render_data_analyst_page():
     """Render the AI Data Analyst page"""
     back_to_home_button()
@@ -368,15 +371,7 @@ def render_segmentation_page():
     if df is not None:
         with st.expander("Data Preview", expanded=True):
             st.dataframe(df.head(100))
-        
-        col1, col2 = st.columns(2)
-        with col1:
-            predict_button = st.button("🧠 Predict Clusters", use_container_width=True)
-        with col2:
-            visualize_button = st.button("📊 Visualize Results", 
-                                        use_container_width=True,
-                                        disabled="df_cluster" not in st.session_state)
-        
+        predict_button = st.button("🧠 Predict Clusters", use_container_width=True)
         if predict_button:
             with st.spinner("Generating clusters..."):
                 try:
@@ -398,7 +393,7 @@ def render_segmentation_page():
                     st.error("Something went wrong during segmentation.")
                     st.exception(e)
         
-        if visualize_button or ("df_cluster" in st.session_state and predict_button):
+        if ("df_cluster" in st.session_state and predict_button):
             tabs = st.tabs(["Visualizations", "Business Insights"])
             
             with tabs[0]:
