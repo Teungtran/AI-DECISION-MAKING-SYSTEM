@@ -7,7 +7,7 @@ from .state import AgentState
 import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-from .memory import save_conversation_to_memory, initialize_checkpointer
+from .memory import save_conversation_to_memory, initialize_checkpointer,get_agent_memory
 from.nodes import (
     amazon_policy,
     sale_expert,
@@ -86,7 +86,7 @@ def build_graph():
     builder.add_edge("refined_node", END)
     db_path=r'C:\Users\Admin\Desktop\Data projects\python\Decision-making-system\BACKEND\chatbot\database\chat_history.db'
     memory = initialize_checkpointer(db_path)
-    graph = builder.compile(checkpointer=memory)  
+    graph = builder.compile(checkpointer=memory,store=get_agent_memory)  
 
     return graph
 
